@@ -18,11 +18,12 @@ public class OrderController {
     @GetMapping(value ="place")
     public RedirectView placeOrder() throws Exception {
         log.info("confirmOrder was hit");
-        //Retrieving the IP/URI & Port of Payment Service
+        //Retrieving the IP & Port of Payment Service
         ServiceData paymentService = new ServiceData(serviceManager.getService("PaymentService"));
         String url = "http://" + paymentService.getIp() + ":" + paymentService.getPort() + "/payment/create";
-        //return "redirect:" + url;
+
         //redirect prefix isn't working so have to use RedirectView!
+        //return "redirect:" + url;
         return new RedirectView(url);
     }
 

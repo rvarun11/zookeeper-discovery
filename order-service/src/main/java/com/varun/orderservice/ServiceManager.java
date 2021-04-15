@@ -46,10 +46,8 @@ public class ServiceManager {
 
     private void setConfig(CuratorFramework client) throws Exception {
         JSONObject jo = new JSONObject();
-
         //using the service IP won't work.
         //String serviceIP = InetAddress.getLocalHost().getHostAddress();
-
         jo.put("IP", SERVICE_IP);
         jo.put("Port", SERVICE_PORT);
 
