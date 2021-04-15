@@ -56,7 +56,7 @@ public class ServiceManager {
 
         client.setData().forPath(SERVICE_PATH, jo.toString().getBytes());
 
-        log.info(String.format("%s has been registered with IP: %s and Port: %d", SERVICE_NAME, SERVICE_URI, SERVICE_PORT));
+        log.info(String.format("%s has been registered with URI: %s and Port: %d", SERVICE_NAME, SERVICE_URI, SERVICE_PORT));
     }
 
     public JSONObject getService(String serviceName) throws Exception {
