@@ -26,6 +26,7 @@ public class OrderController {
         catch (Exception e) {
             log.info("PaymentService is not running");
         }
+
         return new RedirectView(url);
     }
 
