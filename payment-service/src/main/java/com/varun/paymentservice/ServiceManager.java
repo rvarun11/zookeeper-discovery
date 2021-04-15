@@ -19,6 +19,7 @@ public class ServiceManager {
     private static final Logger log = LoggerFactory.getLogger(ServiceManager.class);
     private final String BASE_PATH = "/services";
     private final String SERVICE_NAME;
+    private final String SERVICE_URI;
     private final int SERVICE_PORT;
     private final String SERVICE_PATH;
 
@@ -26,9 +27,11 @@ public class ServiceManager {
     private CuratorFramework client;
 
     public ServiceManager(@Value("${service.name}") final String serviceName,
-                          @Value("${service.port}") final int port) {
+                          @Value("${service.uri}") final String serviceUri,
+                          @Value("${service.port}") final int servicePort) {
         SERVICE_NAME = serviceName;
-        SERVICE_PORT = port;
+        SERVICE_URI = serviceUri;
+        SERVICE_PORT = servicePort;
         SERVICE_PATH = BASE_PATH + '/' + SERVICE_NAME;
     }
 
@@ -44,12 +47,16 @@ public class ServiceManager {
 
     private void setConfig(CuratorFramework client) throws Exception {
         JSONObject jo = new JSONObject();
-        //TODO: using the service IP doesn't seem to be working.
-        String serviceIP = InetAddress.getLocalHost().getHostAddress();
-        jo.put("IP", serviceIP);
+
+        //TODO: using the service IP won't work.
+        //String serviceIP = InetAddress.getLocalHost().getHostAddress();
+
+        jo.put("URI", SERVICE_URI);
         jo.put("Port", SERVICE_PORT);
+
         client.setData().forPath(SERVICE_PATH, jo.toString().getBytes());
-        log.info(String.format("%s has been registered with IP: %s and Port: %d", SERVICE_NAME, serviceIP, SERVICE_PORT));
+
+        log.info(String.format("%s has been registered with IP: %s and Port: %d", SERVICE_NAME, SERVICE_URI, SERVICE_PORT));
     }
 
     public JSONObject getService(String serviceName) throws Exception {

@@ -1,4 +1,4 @@
-package com.varun.orderservice;
+package com.varun.paymentservice;
 
 import org.json.JSONException;
 import org.json.JSONObject;

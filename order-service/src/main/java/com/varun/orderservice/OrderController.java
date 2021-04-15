@@ -26,8 +26,12 @@ public class OrderController {
 
         //Retrieving the IP & Port of Payment Service
         //TODO: test what happens when payment service isn't running.
-        ServiceData serviceData = new ServiceData(serviceManager.getService("PaymentService"));
-        String redirect = "redirect:" + "https://127.0.0.1:" + serviceData.getPort() + "/payment/create";
+        ServiceData paymentService = new ServiceData(serviceManager.getService("PaymentService"));
+
+        //TODO: correct address in
+        String uri = paymentService.getUri();
+        int port = paymentService.getPort();
+        String redirect = "redirect:" + uri + port + "/payment/create";
         return redirect;
     }
 
