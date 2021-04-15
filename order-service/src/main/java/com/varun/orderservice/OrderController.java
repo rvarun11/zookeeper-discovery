@@ -14,17 +14,16 @@ public class OrderController {
     @Autowired
     ServiceManager serviceManager;
 
-    //redirect prefix isn't working so have to use RedirectView!
     //@PostMapping(value = "place", consumes = MediaType.APPLICATION_JSON_VALUE)
     @GetMapping(value ="place")
-    public String placeOrder() throws Exception {
+    public RedirectView placeOrder() throws Exception {
         log.info("confirmOrder was hit");
         //Retrieving the IP/URI & Port of Payment Service
         ServiceData paymentService = new ServiceData(serviceManager.getService("PaymentService"));
-
         String url = "http://" + paymentService.getIp() + ":" + paymentService.getPort() + "/payment/create";
-        return "redirect:" + url;
-        //return new RedirectView(url);
+        //return "redirect:" + url;
+        //redirect prefix isn't working so have to use RedirectView!
+        return new RedirectView(url);
     }
 
 }

@@ -47,7 +47,7 @@ public class ServiceManager {
     private void setConfig(CuratorFramework client) throws Exception {
         JSONObject jo = new JSONObject();
 
-        //TODO: using the service IP won't work.
+        //using the service IP won't work.
         //String serviceIP = InetAddress.getLocalHost().getHostAddress();
 
         jo.put("IP", SERVICE_IP);
@@ -64,7 +64,7 @@ public class ServiceManager {
             throw new RuntimeException("No such service instance is running");
         }
         String data = new String(client.getData().forPath(path));
-        log.info(String.format("%s with was received with config: %s", serviceName, data));
+        log.info(String.format("%s was received with config: %s", serviceName, data));
         return new JSONObject(data);
     }
 }
