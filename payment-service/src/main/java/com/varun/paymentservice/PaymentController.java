@@ -15,5 +15,4 @@ public class PaymentController {
         log.info("createPayment was hit");
         return "createPayment was hit successfully!";
     }
-
 }

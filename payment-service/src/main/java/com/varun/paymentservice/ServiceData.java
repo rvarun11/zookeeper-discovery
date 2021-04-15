@@ -4,16 +4,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ServiceData {
-    private final String uri;
+    private final String ip;
     private final int port;
 
     public ServiceData(final JSONObject serviceData) throws JSONException {
-        this.uri = serviceData.getString("URI");
+        this.ip = serviceData.getString("IP");
         this.port = serviceData.getInt("Port");
     }
 
-    public String getUri() {
-        return uri;
+    public String getIp() {
+        return ip;
     }
 
     public int getPort() {
