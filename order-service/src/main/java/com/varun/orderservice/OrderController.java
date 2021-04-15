@@ -5,9 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
-// can't use RestController because redirect prefix won't work.
-@Controller
+@RestController
 @RequestMapping("order")
 public class OrderController {
     private static final Logger log = LoggerFactory.getLogger(OrderController.class);
@@ -15,19 +15,18 @@ public class OrderController {
     @Autowired
     ServiceManager serviceManager;
 
-    @RequestMapping(value = "place")
-    @ResponseBody
-    public String placeOrder() {
+    @GetMapping(value = "place")
+    public RedirectView placeOrder() {
         log.info("confirmOrder was hit");
-
+        String url = "";
         try {
             ServiceData paymentService = new ServiceData(serviceManager.getService("PaymentService"));
-            return "redirect:http://" + paymentService.getIp() + ":" + paymentService.getPort() + "/payment/create";
+            url = "http://" + paymentService.getIp() + ":" + paymentService.getPort() + "/payment/create";
         }
         catch (Exception e) {
-            log.info("PaymentService is down");
-            return "PaymentService is currently down! Please try again later.";
+            log.info("PaymentService is not running");
         }
+        return new RedirectView(url);
     }
 
 }
